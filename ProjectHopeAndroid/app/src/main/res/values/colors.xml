@@ -3,4 +3,28 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark">#2278d4</color>
+
+
+    <!-- dots active colors -->
+    <color name="dot_light">#93c6fd</color>
+
+
+    <array name="array_dot_active">
+        <item>@color/dot_light</item>
+        <item>@color/dot_light</item>
+        <item>@color/dot_light</item>
+        <item>@color/dot_light</item>
+        <item>@color/dot_light</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark</item>
+        <item>@color/dot_dark</item>
+        <item>@color/dot_dark</item>
+        <item>@color/dot_dark</item>
+        <item>@color/dot_dark</item>
+    </array>
 </resources>
