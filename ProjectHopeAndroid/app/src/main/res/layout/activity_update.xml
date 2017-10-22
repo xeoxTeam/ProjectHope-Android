@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.luke.projecthopeandroid.UpdateProfActivity">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:paddingTop="30dp"
+        android:text="Update Profile"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading"
+        android:id="@+id/nameEdit"
+        android:hint="Please enter name here"
+        android:layout_alignParentLeft="true"
+        android:inputType="textPersonName"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/surnameEdit"
+        android:layout_below="@+id/nameEdit"
+        android:hint="Please surname here"
+        android:layout_alignParentLeft="true"
+        android:inputType="textPersonName"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cellEdit"
+        android:hint="Please enter Cell here"
+        android:layout_alignParentLeft="true"
+        android:maxLength="10"
+        android:layout_below="@+id/surnameEdit"
+        android:inputType="phone"/>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cellEdit"
+        android:layout_alignParentLeft="true"
+        android:onClick="register"
+        android:text="Update" />
+
+</RelativeLayout>

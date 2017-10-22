@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "359544309436",
+    "firebase_url": "https://projecthope-630fe.firebaseio.com",
+    "project_id": "projecthope-630fe",
+    "storage_bucket": "projecthope-630fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359544309436:android:c77daef75d9b2dee",
+        "android_client_info": {
+          "package_name": "com.example.luke.projecthopeandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359544309436-uqorod1meqhdstca239sqtemld7eamcu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.luke.projecthopeandroid",
+            "certificate_hash": "f7aed169c773e8c8d8a8f30ca4a2b7d630708514"
+          }
+        },
+        {
+          "client_id": "359544309436-o40dpg7idma3gjr8a1orh7pbbct0ad5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0TXaggzM0_T_tpPXik6tqGE_fZwR6SVs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359544309436-o40dpg7idma3gjr8a1orh7pbbct0ad5j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
