@@ -64,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView ageEdit = (TextView)findViewById(R.id.ageText);
         TextView bioEdit = (TextView)findViewById(R.id.bioText);
         TextView availableCredText = (TextView)findViewById(R.id.available);
-        availableCredText.setText(availableCredText.getText() + userCredits);
+        availableCredText.setText("Available credits for donation: " + userCredits);
 
         nameEdit.setText(name);
         ageEdit.setText(age);
@@ -176,7 +176,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 userCredits = list1.get(1).getValue().toString();
                 TextView availableCredText = (TextView)findViewById(R.id.available);
-                availableCredText.setText(userCredits);
+                availableCredText.setText("Available credits for donation: "+ userCredits);
 /*                for(DataSnapshot ds : list){
                     ds.getValue()
 *//*                    ShoppingList tempList = ds.getValue(ShoppingList.class);

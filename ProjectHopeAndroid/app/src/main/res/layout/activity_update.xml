@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#2980B9"
     android:layout_height="match_parent"
     tools:context="com.example.luke.projecthopeandroid.UpdateProfActivity">
 
@@ -13,43 +14,53 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:paddingTop="30dp"
+        android:textColor="#FFFFFF"
         android:text="Update Profile"
+        android:layout_marginBottom="30dp"
         android:textSize="40sp"
         android:textStyle="bold" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heading"
         android:id="@+id/nameEdit"
         android:hint="Please enter name here"
-        android:layout_alignParentLeft="true"
-        android:inputType="textPersonName"/>
+        android:background="@drawable/custom_edttext"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/heading"
+        android:layout_marginBottom="15dp"
+        android:layout_alignStart="@+id/cellEdit" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/surnameEdit"
-        android:layout_below="@+id/nameEdit"
         android:hint="Please surname here"
-        android:layout_alignParentLeft="true"
-        android:inputType="textPersonName"/>
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/custom_edttext"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/nameEdit"
+        android:layout_alignStart="@+id/nameEdit" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:id="@+id/cellEdit"
         android:hint="Please enter Cell here"
-        android:layout_alignParentLeft="true"
+        android:background="@drawable/custom_edttext"
         android:maxLength="10"
+        android:inputType="phone"
         android:layout_below="@+id/surnameEdit"
-        android:inputType="phone"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cellEdit"
-        android:layout_alignParentLeft="true"
         android:onClick="register"
-        android:text="Update" />
+        android:text="Update"
+        android:layout_marginTop="62dp"
+        android:background="@drawable/custom_edttext"
+        android:layout_below="@+id/cellEdit"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
