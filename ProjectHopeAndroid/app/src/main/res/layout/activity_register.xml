@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#2980B9"
     android:layout_height="match_parent"
     tools:context="com.example.luke.projecthopeandroid.RegisterActivity">
 
@@ -14,58 +15,73 @@
         android:layout_centerInParent="true"
         android:paddingTop="30dp"
         android:text="Register"
+        android:layout_marginBottom="20dp"
         android:textSize="40sp"
         android:textStyle="bold" />
 
+
+
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heading"
         android:id="@+id/nameEdit"
+        android:background="@drawable/custom_edttext"
         android:hint="Please enter name here"
-        android:layout_alignParentLeft="true"
-        android:inputType="textPersonName"/>
+        android:layout_marginBottom="15dp"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/heading"
+        android:layout_centerHorizontal="true" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/surnameEdit"
-        android:layout_below="@+id/nameEdit"
+        android:background="@drawable/custom_edttext"
         android:hint="Please enter surname here"
-        android:layout_alignParentLeft="true"
-        android:inputType="textPersonName"/>
+        android:layout_marginBottom="15dp"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/nameEdit"
+        android:layout_centerHorizontal="true" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:hint="Please enter Email here"
-        android:layout_below="@+id/surnameEdit"
+        android:background="@drawable/custom_edttext"
         android:id="@+id/emailEdit"
-        android:inputType="textEmailAddress"/>
+        android:layout_marginBottom="15dp"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/surnameEdit"
+        android:layout_alignStart="@+id/nameEdit" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Please enter Password here"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/emailEdit"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/custom_edttext"
         android:id="@+id/passwordEdit"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:layout_below="@+id/emailEdit"
+        android:layout_centerHorizontal="true" />
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/cellEdit"
+        android:layout_marginBottom="15dp"
         android:maxLength="10"
+        android:background="@drawable/custom_edttext"
         android:hint="Please enter Cell here"
-        android:layout_alignParentLeft="true"
+        android:inputType="phone"
         android:layout_below="@+id/passwordEdit"
-        android:inputType="phone"/>
+        android:layout_alignStart="@+id/passwordEdit" />
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cellEdit"
-        android:layout_alignParentLeft="true"
         android:onClick="register"
-        android:text="Register" />
+        android:text="Register"
+        android:background="@drawable/custom_edttext"
+        android:layout_marginTop="54dp"
+        android:layout_below="@+id/cellEdit"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

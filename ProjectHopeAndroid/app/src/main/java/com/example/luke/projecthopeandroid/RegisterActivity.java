@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
                             if (!task.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "Auth Failed",
+                                Toast.makeText(RegisterActivity.this, "Failed To Register User, Please try again.",
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 sendVerificationEmail();

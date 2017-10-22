@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2980B9"
     tools:context="com.example.luke.projecthopeandroid.LoginActivity">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="267dp"
         android:layout_height="168dp"
-        app:srcCompat="@drawable/logo_ph"
+        app:srcCompat="@drawable/newlogo"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.504" />
 
     <EditText
         android:id="@+id/emailEdit"
@@ -24,6 +26,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Email"
+        android:background="@drawable/custom_edttext"
         android:inputType="textEmailAddress"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -39,6 +42,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
+        android:background="@drawable/custom_edttext"
         android:inputType="textPassword"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -54,6 +58,7 @@
         android:layout_height="49dp"
         android:text="Login"
         android:onClick="loginClick"
+        android:background="@drawable/custom_edttext"
         android:layout_marginLeft="52dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,6 +69,7 @@
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:text="Register"
+        android:background="@drawable/custom_edttext"
         android:layout_marginRight="58dp"
         android:onClick="registerClick"
         app:layout_constraintRight_toRightOf="parent"
@@ -75,6 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forgot Password?"
+        android:background="@drawable/custom_edttext"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="31dp"
         android:layout_marginRight="8dp"
