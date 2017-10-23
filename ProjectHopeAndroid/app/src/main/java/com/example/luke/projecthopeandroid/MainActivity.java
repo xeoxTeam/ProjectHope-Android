@@ -58,7 +58,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         uid = getIntent().getStringExtra("userID");      //Get shop list name
+<<<<<<< Updated upstream
         //getUser();
+=======
+        getSupportActionBar().setTitle("");
+>>>>>>> Stashed changes
     }
 
     public void getUser(final String credits, final String key, final String voucherID){
@@ -89,13 +93,6 @@ public class MainActivity extends AppCompatActivity
                 });
                 android.support.v7.app.AlertDialog alert1 = builder.create();
                 alert1.show();
-/*                for(DataSnapshot ds : list){
-                    ds.getValue()
-*//*                    ShoppingList tempList = ds.getValue(ShoppingList.class);
-                    index = tempShopList.size();
-                    tempShopList.add(tempList);
-                    ((ShoppingListViewAdapter) mAdapter).addItem(tempList, index);*//*
-                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -136,8 +133,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void handleResult(Result rawResult) {
-        // Do something with the result here
-
         Log.e("handler", rawResult.getText()); // Prints scan results
         Log.e("handler", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode)
 

@@ -24,7 +24,6 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private static String LOG_TAG = "CardViewActivity";
     private ArrayList<SearchBenefactor> searchBenefactors;
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference(); //Firebase reference
     private String uid;
@@ -40,8 +39,6 @@ public class SearchActivity extends AppCompatActivity {
         searchBenefactors = new ArrayList<>();
         uid = getIntent().getStringExtra("uid");
         getBenefactors();
-/*        SearchBenefactor temp = new SearchBenefactor("Sizwe Lopo", "29 January 2010", 40, "5rtyguhi");
-        searchBenefactors.add(temp);*/
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -143,8 +140,6 @@ public class SearchActivity extends AppCompatActivity {
                 .MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                //Log.i(LOG_TAG, " Clicked on Item " + position);
-
                 fetchBenefactor(searchBenefactors.get(position).getBeneID());
             }
         });
@@ -169,12 +164,6 @@ public class SearchActivity extends AppCompatActivity {
                     key = ds.getKey();
                 }
 
-
-
-/*                for(DataSnapshot ds:list){
-                    list1.add(ds);
-                }*/
-
                 Intent intent = new Intent(SearchActivity.this, ProfileActivity.class);
                 intent.putExtra("age", age);
                 intent.putExtra("bio", bio);
@@ -183,17 +172,8 @@ public class SearchActivity extends AppCompatActivity {
                 intent.putExtra("uid", uid);
                 intent.putExtra("beneID", benefactorID);
                 intent.putExtra("uniqueKey", key);
-                //intent.putExtra("shopListName", shoppingLists.get(position).getName());
 
                 startActivity(intent);
-
-/*                for(DataSnapshot ds : list){
-                    ds.getValue()
-*//*                    ShoppingList tempList = ds.getValue(ShoppingList.class);
-                    index = tempShopList.size();
-                    tempShopList.add(tempList);
-                    ((ShoppingListViewAdapter) mAdapter).addItem(tempList, index);*//*
-                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
