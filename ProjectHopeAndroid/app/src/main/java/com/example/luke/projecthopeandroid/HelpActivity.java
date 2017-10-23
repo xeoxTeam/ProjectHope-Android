@@ -46,13 +46,21 @@ public class HelpActivity extends AppCompatActivity {
         addBottomDots(0);
 
         // making notification bar transparent
-        /*changeStatusBarColor();*/
 
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        /*btnNext.setOnClickListener(new View.OnClickListener() {
+        btnNext = (Button)findViewById(R.id.btn_next);
+        btnSkip = (Button)findViewById(R.id.btn_skip);
+
+        btnSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // checking for last page
@@ -62,10 +70,10 @@ public class HelpActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    *//*launchHomeScreen();*//*
+                    finish();
                 }
             }
-        });*/
+        });
 
         getSupportActionBar().hide();
     }
