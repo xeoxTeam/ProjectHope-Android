@@ -1,6 +1,7 @@
 package com.example.luke.projecthopeandroid;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,10 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-
+        SharedPreferences myPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = myPrefs.edit();
+        prefsEditor.putString("firstTime", "No");                  //Saving chronometer time
+        prefsEditor.commit();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
 
@@ -61,7 +65,13 @@ public class HelpActivity extends AppCompatActivity {
                     *//*launchHomeScreen();*//*
                 }
             }
+<<<<<<< Updated upstream
         });*/ //I like to have fun.
+=======
+        });*/
+
+        getSupportActionBar().hide();
+>>>>>>> Stashed changes
     }
 
     private void addBottomDots(int currentPage) {

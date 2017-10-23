@@ -1,5 +1,6 @@
 package com.example.luke.projecthopeandroid;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 // ...
             }
         };
+        getSupportActionBar().hide();
     }
 
     public void loginClick(View view){

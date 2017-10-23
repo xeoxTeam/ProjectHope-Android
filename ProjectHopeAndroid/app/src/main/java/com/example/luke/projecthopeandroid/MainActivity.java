@@ -42,7 +42,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        SharedPreferences myPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
+        String firstTime = myPrefs.getString("firstTime", "");
+        if(firstTime.equals("")){
+            Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+            startActivity(intent);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
