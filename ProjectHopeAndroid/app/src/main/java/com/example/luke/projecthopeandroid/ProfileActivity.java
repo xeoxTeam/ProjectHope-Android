@@ -102,6 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        getSupportActionBar().hide();
     }
 
     public void loadPic(){
