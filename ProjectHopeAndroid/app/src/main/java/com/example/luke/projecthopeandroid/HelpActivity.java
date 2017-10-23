@@ -61,7 +61,7 @@ public class HelpActivity extends AppCompatActivity {
                     *//*launchHomeScreen();*//*
                 }
             }
-        });*/
+        });*/ //I like to have fun.
     }
 
     private void addBottomDots(int currentPage) {
