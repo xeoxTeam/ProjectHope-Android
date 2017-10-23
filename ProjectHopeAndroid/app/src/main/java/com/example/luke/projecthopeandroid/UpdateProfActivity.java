@@ -8,13 +8,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -29,7 +33,34 @@ public class UpdateProfActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
         userID = getIntent().getStringExtra("userID");
+        getUser();
         errors = new ArrayList<>();
+        getSupportActionBar().hide();
+    }
+
+    public void getUser(){
+        DatabaseReference mConditionRef = mRootRef.child("User").child(userID);
+        mConditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> list = dataSnapshot.getChildren();
+                ArrayList<DataSnapshot> list1 = new ArrayList<DataSnapshot>();
+                EditText nameEdit = (EditText)findViewById(R.id.nameEdit);
+                EditText surnameEdit = (EditText)findViewById(R.id.surnameEdit);
+                EditText cellEdit = (EditText)findViewById(R.id.cellEdit);
+                for(DataSnapshot ds:list){
+                    list1.add(ds);
+                }
+
+                nameEdit.setText(list1.get(3).getValue().toString());
+                surnameEdit.setText(list1.get(4).getValue().toString());
+                cellEdit.setText(list1.get(0).getValue().toString());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void register(View view){

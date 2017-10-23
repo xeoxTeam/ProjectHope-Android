@@ -58,11 +58,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         uid = getIntent().getStringExtra("userID");      //Get shop list name
-<<<<<<< Updated upstream
-        //getUser();
-=======
         getSupportActionBar().setTitle("");
->>>>>>> Stashed changes
     }
 
     public void getUser(final String credits, final String key, final String voucherID){
@@ -139,12 +135,6 @@ public class MainActivity extends AppCompatActivity
 
 
         if(rawResult.getText().startsWith("hope")){
-            // show the scanner result into dialog box.
-/*            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Scan Result");
-            builder.setMessage(rawResult.getText());
-            AlertDialog alert1 = builder.create();
-            alert1.show();*/
             mScannerView.stopCamera();
             String benefactorID = rawResult.getText().substring(4);
             fetchBenefactor(benefactorID);
@@ -187,30 +177,6 @@ public class MainActivity extends AppCompatActivity
                 else{
                     getUser(credits, key, voucherID);
                 }
-
-/*                for(DataSnapshot ds:list){
-                    list1.add(ds);
-                }*/
-
-/*                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("age", age);
-                intent.putExtra("bio", bio);
-                intent.putExtra("credits", credits);
-                intent.putExtra("name", name);
-                intent.putExtra("uid", uid);
-                intent.putExtra("beneID", benefactorID);
-                intent.putExtra("uniqueKey", key);
-                //intent.putExtra("shopListName", shoppingLists.get(position).getName());
-
-                startActivity(intent);*/
-
-/*                for(DataSnapshot ds : list){
-                    ds.getValue()
-*//*                    ShoppingList tempList = ds.getValue(ShoppingList.class);
-                    index = tempShopList.size();
-                    tempShopList.add(tempList);
-                    ((ShoppingListViewAdapter) mAdapter).addItem(tempList, index);*//*
-                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

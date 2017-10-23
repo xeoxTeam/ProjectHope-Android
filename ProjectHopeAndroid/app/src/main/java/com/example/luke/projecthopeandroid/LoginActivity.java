@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //SharedPreferences myPrefs = getPreferences(MODE_PRIVATE);
         SharedPreferences myPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
         String userID = myPrefs.getString("userID", "");
         errors = new ArrayList<>();
@@ -52,13 +51,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-/*                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);*/
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
         getSupportActionBar().hide();
@@ -75,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            //Log.d("TAG", "signInWithEmail:onComplete:" + task.isSuccessful());
 
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
@@ -83,20 +78,16 @@ public class LoginActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Auth Failed",
                                         Toast.LENGTH_SHORT).show();
-                                //Log.w("TAG", "signInWithEmail:failed", task.getException());
 
                             } else {
                                 checkIfEmailVerified();
                             }
-                            // ...
                         }
                     });
         }
         else {
             showDialog();
         }
-/*        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);*/
     }
 
     public void registerClick(View view){
@@ -105,8 +96,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void lostClick(View view){
-/*        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);*/
         FirebaseAuth auth = FirebaseAuth.getInstance();
         EditText emailEdit = (EditText)findViewById(R.id.emailEdit);
         if(!emailEdit.getText().toString().equals("")) {
@@ -144,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
             prefsEditor.putString("userID", user.getUid());                  //Saving chronometer time
             prefsEditor.commit();
             startActivity(intent);
-            //finish();
         }
         else
         {
@@ -200,18 +188,4 @@ public class LoginActivity extends AppCompatActivity {
 
         return passed;
     }
-
-/*    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }*/
 }
