@@ -65,13 +65,9 @@ public class HelpActivity extends AppCompatActivity {
                     *//*launchHomeScreen();*//*
                 }
             }
-<<<<<<< Updated upstream
-        });*/ //I like to have fun.
-=======
         });*/
 
         getSupportActionBar().hide();
->>>>>>> Stashed changes
     }
 
     private void addBottomDots(int currentPage) {
