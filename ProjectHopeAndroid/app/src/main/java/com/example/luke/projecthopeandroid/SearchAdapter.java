@@ -86,7 +86,6 @@ public class SearchAdapter extends RecyclerView
             public void onSuccess(byte[] bytes) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0, bytes.length);
                 holder.profilePic.setImageBitmap(bitmap);
-                // Data for "images/island.jpg" is returns, use this as needed
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -94,29 +93,6 @@ public class SearchAdapter extends RecyclerView
                 // Handle any errors
             }
         });
-/*        mStorageRef = FirebaseStorage.getInstance().getReference();
-
-        try {
-            final File localFile = File.createTempFile("images", "jpg");
-
-        final StorageReference riversRef = mStorageRef.child("Benefactor/" + mDataset.get(position).getBeneID() + ".jpg");
-        riversRef.getFile(localFile)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        //holder.profilePic.setImageBitmap(riversRef.);
-                        holder.profilePic.setImageBitmap(Bitmap.createBitmap(localFile));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle failed download
-                // ...
-            }
-        });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public void addItem(SearchBenefactor dataObj, int index) {

@@ -52,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Sign out",
                             Toast.LENGTH_SHORT).show();
                 }
-                // ...
             }
         };
         getSupportActionBar().hide();
@@ -81,8 +80,6 @@ public class RegisterActivity extends AppCompatActivity {
                             } else {
                                 sendVerificationEmail();
                             }
-
-                            // ...
                         }
                     });
         }
@@ -189,18 +186,4 @@ public class RegisterActivity extends AppCompatActivity {
 
         return passed;
     }
-
-/*    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }*/
 }

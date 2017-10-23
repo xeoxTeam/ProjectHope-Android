@@ -95,13 +95,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 updateRates();
-/*                if((!creditsEdit.getText().toString().equals("")) && Integer.parseInt(userCredits) > Integer.parseInt(creditsEdit.getText().toString())) {
-                    updateRates();
-                }
-                else {
-                    displayError();
-                    creditsEdit.setText("");
-                }*/
             }
 
             @Override
@@ -124,7 +117,6 @@ public class ProfileActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0, bytes.length);
                 ImageView profPic = (ImageView) findViewById(R.id.profileImage);
                 profPic.setImageBitmap(bitmap);
-                // Data for "images/island.jpg" is returns, use this as needed
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -178,13 +170,6 @@ public class ProfileActivity extends AppCompatActivity {
                 userCredits = list1.get(1).getValue().toString();
                 TextView availableCredText = (TextView)findViewById(R.id.available);
                 availableCredText.setText("Available credits for donation: "+ userCredits);
-/*                for(DataSnapshot ds : list){
-                    ds.getValue()
-*//*                    ShoppingList tempList = ds.getValue(ShoppingList.class);
-                    index = tempShopList.size();
-                    tempShopList.add(tempList);
-                    ((ShoppingListViewAdapter) mAdapter).addItem(tempList, index);*//*
-                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
