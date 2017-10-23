@@ -55,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                 // ...
             }
         };
+        getSupportActionBar().hide();
     }
 
     public void register(View view){
@@ -88,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         else{
             showDialog();
         }
+
     }
 
     private void sendVerificationEmail()
