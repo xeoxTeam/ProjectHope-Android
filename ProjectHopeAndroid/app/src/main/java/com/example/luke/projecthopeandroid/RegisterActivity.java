@@ -78,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterActivity.this, "Failed To Register User, Please try again.",
                                         Toast.LENGTH_SHORT).show();
                             } else {
+                                Toast.makeText(RegisterActivity.this, "Please check email to verify account", Toast.LENGTH_SHORT).show();
                                 sendVerificationEmail();
                             }
                         }
@@ -129,6 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+        finish();
     }
 
     public void showDialog(){                       //Message dialog for displaying error messages

@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,9 +34,9 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference(); //Firebase reference
     private String beneCredits;
     private static final int bed = 3;
-    private static final int hotShave = 3;
-    private static final int food = 3;
-    private static final int hotShower = 3;
+    private static final int hotShave = 1;
+    private static final int food = 2;
+    private static final int hotShower = 1;
     private TextView bedText;
     private TextView shaveText;
     private TextView foodText;
@@ -80,8 +81,11 @@ public class ProfileActivity extends AppCompatActivity {
         foodText.setText(foodText.getText() + (0 + ""));
         showerText.setText(showerText.getText() + (0 + ""));
 
-        Date currentTime = Calendar.getInstance().getTime();
-        SearchBenefactor temp = new SearchBenefactor(name, currentTime.toString(), 0, beneID);
+        //Date currentTime = Calendar.getInstance().getTime();
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+        String strDate = sdf.format(date);
+        SearchBenefactor temp = new SearchBenefactor(name, strDate, 0, beneID);
         mRootRef.child("Search").child(uid).child(beneID).setValue(temp);
 
         final EditText creditsEdit = (EditText)findViewById(R.id.creditsEdit);
@@ -146,7 +150,6 @@ public class ProfileActivity extends AppCompatActivity {
             credits = 0;
         }
         else {
-
             credits = Integer.parseInt(creditEdit.getText().toString());
         }
         bedText.setText("Bed  = " + (credits / bed  + ""));
@@ -181,18 +184,20 @@ public class ProfileActivity extends AppCompatActivity {
     public void donate(View view){
         EditText creditEdit = (EditText)findViewById(R.id.creditsEdit);
         if(!creditEdit.getText().toString().equals("") && (Integer.parseInt(creditEdit.getText().toString()) <= Integer.parseInt(userCredits))){
-            Date currentTime = Calendar.getInstance().getTime();
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+            String strDate = sdf.format(date);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             String key = database.getReference("Donation").push().getKey();
             mRootRef.child("Donation").child(key).child("UserID").setValue(uid);
             mRootRef.child("Donation").child(key).child("UserBenefactorID").setValue(beneID);
             mRootRef.child("Donation").child(key).child("Credits").setValue(Integer.parseInt(creditEdit.getText().toString()));
-            mRootRef.child("Donation").child(key).child("Date").setValue(currentTime.toString());
+            mRootRef.child("Donation").child(key).child("Date").setValue(strDate);
 
             mRootRef.child("User").child(uid).child("Credits").setValue(Integer.parseInt(userCredits) - Integer.parseInt(creditEdit.getText().toString()));
             mRootRef.child("SearchBenefactor").child(beneID).child(uniqueKey).child("Credits").setValue(Integer.parseInt(beneCredits) + Integer.parseInt(creditEdit.getText().toString()));
 
-            SearchBenefactor temp = new SearchBenefactor(name, currentTime.toString(), Integer.parseInt(creditEdit.getText().toString()), beneID);
+            SearchBenefactor temp = new SearchBenefactor(name, strDate, Integer.parseInt(creditEdit.getText().toString()), beneID);
             mRootRef.child("Search").child(uid).child(beneID).setValue(temp);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

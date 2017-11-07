@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -144,6 +145,9 @@ public class MainActivity extends AppCompatActivity
             String voucherID = rawResult.getText().substring(7);
             fetchVoucher(voucherID);
         }
+        else {
+            Toast.makeText(MainActivity.this, "Invalid QR code!", Toast.LENGTH_SHORT).show();
+        }
 
         // If you would like to resume scanning, call this method below:
         mScannerView.resumeCameraPreview(this);
@@ -191,44 +195,20 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> list = dataSnapshot.getChildren();
-                String age = "";
-                String bio = "";
-                String credits = "";
-                String name = "";
-                String key = "";
+                ArrayList<String> benefactor = new ArrayList<String>();
                 for(DataSnapshot ds: list){
-                    age = ds.child("Age").getValue().toString();
-                    bio = ds.child("Bio").getValue().toString();
-                    credits = ds.child("Credits").getValue().toString();
-                    name = ds.child("FirstName").getValue().toString() + ds.child("LastName").getValue().toString();
-                    key = ds.getKey();
+                    benefactor.add(ds.getValue().toString());
                 }
 
-
-
-/*                for(DataSnapshot ds:list){
-                    list1.add(ds);
-                }*/
-
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("age", age);
-                intent.putExtra("bio", bio);
-                intent.putExtra("credits", credits);
-                intent.putExtra("name", name);
+                intent.putExtra("age", benefactor.get(0));
+                intent.putExtra("bio", benefactor.get(1));
+                intent.putExtra("credits", benefactor.get(2));
+                intent.putExtra("name", benefactor.get(3));
                 intent.putExtra("uid", uid);
                 intent.putExtra("beneID", benefactorID);
-                intent.putExtra("uniqueKey", key);
-                //intent.putExtra("shopListName", shoppingLists.get(position).getName());
-
+                intent.putExtra("uniqueKey", benefactor.get(7).substring(4, benefactor.get(7).length()));
                 startActivity(intent);
-
-/*                for(DataSnapshot ds : list){
-                    ds.getValue()
-*//*                    ShoppingList tempList = ds.getValue(ShoppingList.class);
-                    index = tempShopList.size();
-                    tempShopList.add(tempList);
-                    ((ShoppingListViewAdapter) mAdapter).addItem(tempList, index);*//*
-                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -253,18 +233,6 @@ public class MainActivity extends AppCompatActivity
             Intent settingsIntent = new Intent(MainActivity.this, MainActivity.class);
             settingsIntent.putExtra("userID", uid);
             startActivity(settingsIntent);
-/*            setContentView(R.layout.activity_main);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
-
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);*/
         }
         else {
             //super.onBackPressed();
@@ -317,6 +285,11 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.nav_edit){
             Intent intent = new Intent(MainActivity.this, UpdateProfActivity.class);
+            intent.putExtra("userID", uid);
+            startActivity(intent);
+        }
+        else if(id == R.id.nav_add){
+            Intent intent = new Intent(MainActivity.this, AddBenefactorActivity.class);
             intent.putExtra("userID", uid);
             startActivity(intent);
         }

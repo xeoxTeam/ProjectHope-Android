@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         searchBenefactors = new ArrayList<>();
         uid = getIntent().getStringExtra("uid");
         getBenefactors();
-
+        getSupportActionBar().setTitle("Search - History");
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -144,8 +144,34 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
-
     public void fetchBenefactor(final String benefactorID){
+        DatabaseReference mConditionRef = mRootRef.child("Benefactor").child(benefactorID);
+        mConditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> list = dataSnapshot.getChildren();
+                ArrayList<String> benefactor = new ArrayList<String>();
+                for(DataSnapshot ds: list){
+                    benefactor.add(ds.getValue().toString());
+                }
+
+                Intent intent = new Intent(SearchActivity.this, ProfileActivity.class);
+                intent.putExtra("age", benefactor.get(0));
+                intent.putExtra("bio", benefactor.get(1));
+                intent.putExtra("credits", benefactor.get(2));
+                intent.putExtra("name", benefactor.get(3));
+                intent.putExtra("uid", uid);
+                intent.putExtra("beneID", benefactorID);
+                intent.putExtra("uniqueKey", benefactor.get(7).substring(4, benefactor.get(7).length()));
+                startActivity(intent);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+/*    public void fetchBenefactor(final String benefactorID){
         DatabaseReference mConditionRef = mRootRef.child("Benefactor").child(benefactorID);
         mConditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -180,7 +206,7 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -63,10 +63,11 @@ public class LoginActivity extends AppCompatActivity {
     public void loginClick(View view){
         EditText emailEdit = (EditText)findViewById(R.id.emailEdit);
         EditText passwordEdit = (EditText)findViewById(R.id.passwordEdit);
+
         if(checkInputs()) {
             String email = emailEdit.getText().toString();
             String password = passwordEdit.getText().toString();
-
+            Toast.makeText(LoginActivity.this, "Checking login details", Toast.LENGTH_SHORT).show();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -96,24 +97,38 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void lostClick(View view){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        EditText emailEdit = (EditText)findViewById(R.id.emailEdit);
-        if(!emailEdit.getText().toString().equals("")) {
-            String emailAddress = emailEdit.getText().toString();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        final EditText emailEdit = (EditText)findViewById(R.id.emailEdit);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setMessage("Are you sure you want to send a lost password email?")
+                .setTitle("Warning!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if(!emailEdit.getText().toString().equals("")) {
+                    String emailAddress = emailEdit.getText().toString();
 
-            auth.sendPasswordResetEmail(emailAddress)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "Email sent.");
-                            }
-                        }
-                    });
-        }
-        else {
-            Toast.makeText(LoginActivity.this, "Please enter an email", Toast.LENGTH_SHORT).show();
-        }
+                    auth.sendPasswordResetEmail(emailAddress)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "Email sent.");
+                                    }
+                                }
+                            });
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "Please enter an email", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void checkIfEmailVerified()
