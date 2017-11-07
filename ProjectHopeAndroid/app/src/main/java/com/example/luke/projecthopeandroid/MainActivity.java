@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
 
                 String userCredits = list1.get(1).getValue().toString();
                 DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference(); //Firebase reference
-                mRootRef.child("Voucher").child(voucherID).child(key).child("Credits").setValue(0);
+                mRootRef.child("Voucher").child(voucherID).setValue(null);
                 mRootRef.child("User").child(uid).child("Credits").setValue(Integer.parseInt(userCredits) + Integer.parseInt(credits));
 
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
@@ -159,27 +159,39 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> list = dataSnapshot.getChildren();
-                String credits = "";
+                ArrayList<String> voucher = new ArrayList<String>();
+/*                String credits = "";
                 String key = "";
                 for(DataSnapshot ds: list){
                     credits = ds.child("Credits").getValue().toString();
                     key = ds.getKey();
+                }*/
+                for(DataSnapshot ds : list){
+                    voucher.add(ds.getValue().toString());
                 }
-                if(credits.equals("") || credits.equals("0")){
-                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Error");
-                    builder.setMessage("This voucher has expired!");
-                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            mScannerView.startCamera();
-                            mScannerView.resumeCameraPreview(MainActivity.this);
-                        }
-                    });
-                    android.support.v7.app.AlertDialog alert1 = builder.create();
-                    alert1.show();
+
+                //if(credits.equals("") || credits.equals("0")){
+                if(voucher.size() != 0) {
+                    if (voucher.get(2).equals("") || voucher.get(2).equals("0")) {
+                        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage("This voucher has expired!");
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mScannerView.startCamera();
+                                mScannerView.resumeCameraPreview(MainActivity.this);
+                            }
+                        });
+                        android.support.v7.app.AlertDialog alert1 = builder.create();
+                        alert1.show();
+                    } else {
+                        getUser(voucher.get(2), voucher.get(1), voucherID);
+                    }
                 }
-                else{
-                    getUser(credits, key, voucherID);
+                else {
+                    Toast.makeText(MainActivity.this, "Expired Voucher!", Toast.LENGTH_SHORT).show();
+                    mScannerView.startCamera();
+                    mScannerView.resumeCameraPreview(MainActivity.this);
                 }
             }
             @Override
