@@ -199,6 +199,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             SearchBenefactor temp = new SearchBenefactor(name, strDate, Integer.parseInt(creditEdit.getText().toString()), beneID);
             mRootRef.child("Search").child(uid).child(beneID).setValue(temp);
+            mRootRef.child("UserNotification").child(uid).child(beneID).setValue(false);
+            mRootRef.child("CheckInNotification").child(beneID).child("CheckIn").setValue(false);
+            mRootRef.child("CheckInNotification").child(beneID).child("Name").setValue("Blank");
+            mRootRef.child("Benefactor").child(beneID).child("Credits").setValue(Integer.parseInt(beneCredits) + Integer.parseInt(creditEdit.getText().toString()));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Thank you!");

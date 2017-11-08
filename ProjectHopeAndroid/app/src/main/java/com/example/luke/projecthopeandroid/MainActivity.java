@@ -1,12 +1,14 @@
 package com.example.luke.projecthopeandroid;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
         uid = getIntent().getStringExtra("userID");      //Get shop list name
         getSupportActionBar().setTitle("");
+        getNotificationList();
     }
 
     public void getUser(final String credits, final String key, final String voucherID){
@@ -96,6 +99,69 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    public void getNotificationList(){
+        DatabaseReference mConditionRef = mRootRef.child("UserNotification").child(uid);
+        mConditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> list = dataSnapshot.getChildren();
+                ArrayList<String> listBeneIDs = new ArrayList<String>();
+                //ArrayList<DataSnapshot> list1 = new ArrayList<DataSnapshot>();
+
+                for(DataSnapshot ds:list){
+                    listBeneIDs.add(ds.getKey().toString());
+                }
+                checkForNotification(listBeneIDs);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void checkForNotification(ArrayList<String> listBeneID){
+        for(int i = 0; i < listBeneID.size(); i++) {
+            String beneId = listBeneID.get(i);
+            DatabaseReference mConditionRef = mRootRef.child("CheckInNotification").child(beneId);
+            mConditionRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> list = dataSnapshot.getChildren();
+                    ArrayList<DataSnapshot> list1 = new ArrayList<DataSnapshot>();
+                    String beneID = "";
+                    for (DataSnapshot ds : list) {
+                        list1.add(ds);
+
+                    }
+                    beneID = dataSnapshot.getKey();
+                    if(list1.get(0).getValue().toString().equals("true")){
+
+                        NotificationCompat.Builder mBuilder =
+                                new NotificationCompat.Builder(MainActivity.this)
+                                        .setSmallIcon(R.drawable.logo)
+                                        .setContentTitle("Project Hope")
+                                        .setContentText(list1.get(1).getValue().toString() + " has checked-in");
+                        // Sets an ID for the notification
+                        int mNotificationId = 001;
+                        // Gets an instance of the NotificationManager service
+                        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        // Builds the notification and issues it.
+                        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+                        mRootRef.child("UserNotification").child(uid).child(beneID).setValue(null);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     public void startScan(View view){
