@@ -3,15 +3,15 @@ package com.example.luke.projecthopeandroid;
 /**
  * Created by Luke on 2017-09-19.
  */
-
+//Search benefactor class
 public class SearchBenefactor {
+    //Declaration and Initialisation
+    private String fullName;                        //Full name
+    private String date;                            //Date
+    private int lastDonateAmount;                   //Last donated amount
+    private String beneID;                          //Benefactor id
 
-    private String fullName;
-    private String date;
-    private int lastDonateAmount;
-    private String beneID;
-
-    public SearchBenefactor(String fullName, String date, int lastDonateAmount, String beneID){
+    public SearchBenefactor(String fullName, String date, int lastDonateAmount, String beneID){ //Constructor
         this.fullName = fullName;
         this.date = date;
         this.lastDonateAmount = lastDonateAmount;
@@ -24,7 +24,7 @@ public class SearchBenefactor {
 
     public String getFullName() {
         return fullName;
-    }
+    }                           //Getters and setters
 
     public void setFullName(String fullName) {
         this.fullName = fullName;

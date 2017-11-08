@@ -15,43 +15,38 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class HelpActivity extends AppCompatActivity {
-
-    private ViewPager viewPager;
-    private MyViewPagerAdapter myViewPagerAdapter;
-    private LinearLayout dotsLayout;
-    private TextView[] dots;
-    private int[] layouts;
-    private Button btnSkip, btnNext;
+    //Declaration and Initailisation
+    private ViewPager viewPager;                    //Viewpager
+    private MyViewPagerAdapter myViewPagerAdapter;  //Adapter
+    private LinearLayout dotsLayout;                //Linear layout
+    private TextView[] dots;                        //Textview dots
+    private int[] layouts;                          //Layouts
+    private Button btnSkip, btnNext;                //Buttons
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
         SharedPreferences myPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = myPrefs.edit();
-        prefsEditor.putString("firstTime", "No");                  //Saving chronometer time
+        prefsEditor.putString("firstTime", "No");                  //Saving first time login
         prefsEditor.commit();
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
 
-        // layouts of all welcome sliders
-        // add few more layouts if you want
-        layouts = new int[]{
+        layouts = new int[]{                                                // layouts of all welcome sliders
                 R.layout.log_in_help,
                 R.layout.register_help,
                 R.layout.home_screen_help,
                 R.layout.profile_page_help,
                 R.layout.search_page_help};
 
-        // adding bottom dots
-        addBottomDots(0);
+        addBottomDots(0);                           // adding bottom dots
 
-        // making notification bar transparent
-
-        myViewPagerAdapter = new MyViewPagerAdapter();
+        myViewPagerAdapter = new MyViewPagerAdapter();  // making notification bar transparent
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnNext = (Button)findViewById(R.id.btn_next);
+        btnNext = (Button)findViewById(R.id.btn_next);      //Assigning the buttons
         btnSkip = (Button)findViewById(R.id.btn_skip);
 
         btnSkip.setOnClickListener(new View.OnClickListener() {
@@ -78,14 +73,14 @@ public class HelpActivity extends AppCompatActivity {
         getSupportActionBar().hide();
     }
 
-    private void addBottomDots(int currentPage) {
+    private void addBottomDots(int currentPage) {           //Method to add dots at the bottom of the screen
         dots = new TextView[layouts.length];
 
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);      //Active dots
+        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);  //Inactive dots
 
         dotsLayout.removeAllViews();
-        for (int i = 0; i < dots.length; i++) {
+        for (int i = 0; i < dots.length; i++) {                                         //Setting dots
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
@@ -147,9 +142,9 @@ public class HelpActivity extends AppCompatActivity {
 
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(ViewGroup container, int position, Object object) {     //Method
             View view = (View) object;
             container.removeView(view);
         }
-    }
+    }           //Pager adapter
 }

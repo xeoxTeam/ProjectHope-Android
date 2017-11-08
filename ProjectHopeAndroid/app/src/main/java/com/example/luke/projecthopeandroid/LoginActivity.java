@@ -20,26 +20,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-
+//Login activity
 public class LoginActivity extends AppCompatActivity {
-
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    //Declaration and Initialisation
+    private FirebaseAuth mAuth;                                                         //Firebase authenticator
+    private FirebaseAuth.AuthStateListener mAuthListener;                               //Firebase authenticator Listener
     private ArrayList<String> errors;                                                   //Error array list
-
-    private static final String TAG = "Storage#MainActivity";
+    private static final String TAG = "Storage#MainActivity";                           //Tag for log
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {                                //On create method
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferences myPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
-        String userID = myPrefs.getString("userID", "");
-        errors = new ArrayList<>();
-        if(!userID.equals("")){
+        SharedPreferences myPrefs = getSharedPreferences("PREFERENCE", MODE_PRIVATE);       //Getting shared preference for anonymous login
+        String userID = myPrefs.getString("userID", "");                                    //Getting user id
+        errors = new ArrayList<>();                                                         //Initialising error array
+        if(!userID.equals("")){                                                             //Checking if first time login
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("userID", userID);
-            startActivity(intent);
+            startActivity(intent);                                                  //Login automatically
         }
 
         mAuth = FirebaseAuth.getInstance();
@@ -57,17 +56,18 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        getSupportActionBar().hide();
+        getSupportActionBar().hide();                                                       //Hiding action bar
     }
-
+    //Method to login
     public void loginClick(View view){
-        EditText emailEdit = (EditText)findViewById(R.id.emailEdit);
-        EditText passwordEdit = (EditText)findViewById(R.id.passwordEdit);
+        //Declration and initailisation
+        EditText emailEdit = (EditText)findViewById(R.id.emailEdit);                       //Email
+        EditText passwordEdit = (EditText)findViewById(R.id.passwordEdit);                  //Password
 
-        if(checkInputs()) {
-            String email = emailEdit.getText().toString();
+        if(checkInputs()) {                                                                 //Verifying inputs
+            String email = emailEdit.getText().toString();                                  //Fetching email and password
             String password = passwordEdit.getText().toString();
-            Toast.makeText(LoginActivity.this, "Checking login details", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Checking login details", Toast.LENGTH_SHORT).show();    //Notifying user
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -76,12 +76,12 @@ public class LoginActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
+                            if (!task.isSuccessful()) {                                 //If login failed
                                 Toast.makeText(LoginActivity.this, "Auth Failed",
                                         Toast.LENGTH_SHORT).show();
 
                             } else {
-                                checkIfEmailVerified();
+                                checkIfEmailVerified();                                //Checking if emailed has been verified
                             }
                         }
                     });
@@ -91,19 +91,19 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void registerClick(View view){
+    public void registerClick(View view){                                       //Opening register page
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
-    public void lostClick(View view){
+    public void lostClick(View view){                                          //Method for lost password
         final FirebaseAuth auth = FirebaseAuth.getInstance();
         final EditText emailEdit = (EditText)findViewById(R.id.emailEdit);
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setMessage("Are you sure you want to send a lost password email?")
                 .setTitle("Warning!");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+            public void onClick(DialogInterface dialog, int id) {                       //Sending lost password email on ok button
                 if(!emailEdit.getText().toString().equals("")) {
                     String emailAddress = emailEdit.getText().toString();
 
@@ -131,11 +131,11 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void checkIfEmailVerified()
+    private void checkIfEmailVerified()                         //Method for checking if email is verified
     {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();  //Firebase user
 
-        if (user.isEmailVerified())
+        if (user.isEmailVerified())                                         //Checking if email is verified
         {
             // user is verified, so you can finish this activity or send user to activity which you want.
 

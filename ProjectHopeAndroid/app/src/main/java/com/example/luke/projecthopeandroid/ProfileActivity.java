@@ -28,27 +28,27 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+//Actvity to display benefactor profile and donate to them
 public class ProfileActivity extends AppCompatActivity {
-
+    //Declaration and Initialisation
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference(); //Firebase reference
-    private String beneCredits;
-    private static final int bed = 3;
-    private static final int hotShave = 1;
-    private static final int food = 2;
-    private static final int hotShower = 1;
-    private TextView bedText;
-    private TextView shaveText;
-    private TextView foodText;
-    private TextView showerText;
-    private String uid;
-    private String userCredits;
-    private String beneID;
-    private String name;
-    private String uniqueKey;
+    private String beneCredits;                                                         //Benefactor credits
+    private static final int bed = 3;                                                   //Bed rate
+    private static final int hotShave = 1;                                              //Shave rate
+    private static final int food = 2;                                                  //Food rate
+    private static final int hotShower = 1;                                             //Shower rate
+    private TextView bedText;                                                           //Bed text view
+    private TextView shaveText;                                                         //Shave text view
+    private TextView foodText;                                                          //Food text view
+    private TextView showerText;                                                        //Shower text viwe
+    private String uid;                                                                 //User id
+    private String userCredits;                                                         //User credits
+    private String beneID;                                                              //Benefactor id
+    private String name;                                                                //Name
+    private String uniqueKey;                                                           //Unique key
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {        //On create method
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         String age = getIntent().getStringExtra("age");      //Get shop list name
@@ -109,15 +109,15 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().hide();
     }
 
-    public void loadPic(){
+    public void loadPic(){              //Method for loading image from firebase storage
         StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference islandRef = mStorageRef.child("Benefactor/" + beneID + ".jpg");
+        StorageReference islandRef = mStorageRef.child("Benefactor/" + beneID + ".jpg");            //Storage reference to read images
 
         final long ONE_MEGABYTE = 1024 * 1024;
         islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
-            public void onSuccess(byte[] bytes) {
+            public void onSuccess(byte[] bytes) {   //Fetching image
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0, bytes.length);
                 ImageView profPic = (ImageView) findViewById(R.id.profileImage);
                 profPic.setImageBitmap(bitmap);
@@ -130,7 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void displayError(){
+    public void displayError(){         //Method for displaying error message
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
         builder.setTitle("Error");
         builder.setMessage("Not enough credits");
@@ -142,11 +142,11 @@ public class ProfileActivity extends AppCompatActivity {
         AlertDialog alert1 = builder.create();
         alert1.show();
     }
-
+    //Method for updating the rates
     public void updateRates(){
         EditText creditEdit = (EditText)findViewById(R.id.creditsEdit);
         int credits;
-        if(creditEdit.getText().toString().equals("")){
+        if(creditEdit.getText().toString().equals("")){     //Resetting rates if nothing
             credits = 0;
         }
         else {
@@ -157,7 +157,7 @@ public class ProfileActivity extends AppCompatActivity {
         foodText.setText("Food  = " + (credits / food + ""));
         showerText.setText("Hot Shower  = " + (credits / hotShower + ""));
     }
-
+    //Method for getting user details
     public void getUser(){
         DatabaseReference mConditionRef = mRootRef.child("User").child(uid);
         mConditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -180,31 +180,31 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-
+    //Method for donating
     public void donate(View view){
-        EditText creditEdit = (EditText)findViewById(R.id.creditsEdit);
+        EditText creditEdit = (EditText)findViewById(R.id.creditsEdit); //Checking if user entered credits or has enough credits
         if(!creditEdit.getText().toString().equals("") && (Integer.parseInt(creditEdit.getText().toString()) <= Integer.parseInt(userCredits))){
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
-            String strDate = sdf.format(date);
+            String strDate = sdf.format(date);                                          //Creating date
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             String key = database.getReference("Donation").push().getKey();
-            mRootRef.child("Donation").child(key).child("UserID").setValue(uid);
+            mRootRef.child("Donation").child(key).child("UserID").setValue(uid);        //Saving donation
             mRootRef.child("Donation").child(key).child("UserBenefactorID").setValue(beneID);
             mRootRef.child("Donation").child(key).child("Credits").setValue(Integer.parseInt(creditEdit.getText().toString()));
             mRootRef.child("Donation").child(key).child("Date").setValue(strDate);
-
+                                                                                            //Deducting user credits
             mRootRef.child("User").child(uid).child("Credits").setValue(Integer.parseInt(userCredits) - Integer.parseInt(creditEdit.getText().toString()));
             mRootRef.child("SearchBenefactor").child(beneID).child(uniqueKey).child("Credits").setValue(Integer.parseInt(beneCredits) + Integer.parseInt(creditEdit.getText().toString()));
 
-            SearchBenefactor temp = new SearchBenefactor(name, strDate, Integer.parseInt(creditEdit.getText().toString()), beneID);
+            SearchBenefactor temp = new SearchBenefactor(name, strDate, Integer.parseInt(creditEdit.getText().toString()), beneID);     //Updating search history
             mRootRef.child("Search").child(uid).child(beneID).setValue(temp);
             mRootRef.child("UserNotification").child(uid).child(beneID).setValue(false);
             mRootRef.child("CheckInNotification").child(beneID).child("CheckIn").setValue(false);
             mRootRef.child("CheckInNotification").child(beneID).child("Name").setValue("Blank");
             mRootRef.child("Benefactor").child(beneID).child("Credits").setValue(Integer.parseInt(beneCredits) + Integer.parseInt(creditEdit.getText().toString()));
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);                //Displaying dialog
             builder.setTitle("Thank you!");
             builder.setMessage("You have successfully donated " + creditEdit.getText().toString() + " credits");
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -220,8 +220,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void rates(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    public void rates(View view){               //Displaying rates
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);            //Dialog to display rates
         builder.setTitle("Rates");
         builder.setMessage("Bed = 3\nHot shave = 1\nFood = 2\nHot shower = 1");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

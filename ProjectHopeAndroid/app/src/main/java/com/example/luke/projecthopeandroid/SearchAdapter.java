@@ -75,7 +75,7 @@ public class SearchAdapter extends RecyclerView
     public void onBindViewHolder(final DataObjectHolder holder, int position) {
         holder.label.setText(mDataset.get(position).getFullName());
         holder.dateTime.setText(mDataset.get(position).getDate());
-        holder.money.setText(mDataset.get(position).getLastDonateAmount() + "Credz");
+        holder.money.setText(mDataset.get(position).getLastDonateAmount() + "Credits");
         StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
         StorageReference islandRef = mStorageRef.child("Benefactor/" + mDataset.get(position).getBeneID() + ".jpg");

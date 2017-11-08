@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> list = dataSnapshot.getChildren();
                 ArrayList<String> listBeneIDs = new ArrayList<String>();
-                //ArrayList<DataSnapshot> list1 = new ArrayList<DataSnapshot>();
 
                 for(DataSnapshot ds:list){
                     listBeneIDs.add(ds.getKey().toString());

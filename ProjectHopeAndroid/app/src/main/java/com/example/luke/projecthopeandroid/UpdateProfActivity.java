@@ -21,24 +21,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
+//Activity for updating user profile
 public class UpdateProfActivity extends AppCompatActivity {
-
+    //Declaration and Initialisation
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference(); //Firebase reference
     private ArrayList<String> errors;                                                   //Error array list
     private String userID;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {        //On create method
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-        userID = getIntent().getStringExtra("userID");
-        getUser();
-        errors = new ArrayList<>();
-        getSupportActionBar().hide();
+        userID = getIntent().getStringExtra("userID");          //Fetching user id
+        getUser();                                              //Fetching user details
+        errors = new ArrayList<>();                             //Initialising error array
+        getSupportActionBar().hide();                           //Hiding support bar
     }
 
-    public void getUser(){
+    public void getUser(){                                      //Method for retrieving user details from firebase
         DatabaseReference mConditionRef = mRootRef.child("User").child(userID);
         mConditionRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -63,7 +63,7 @@ public class UpdateProfActivity extends AppCompatActivity {
         });
     }
 
-    public void register(View view){
+    public void register(View view){                            //Method to save user details
         EditText nameEdit = (EditText)findViewById(R.id.nameEdit);
         EditText surnameEdit = (EditText)findViewById(R.id.surnameEdit);
         EditText cellEdit = (EditText)findViewById(R.id.cellEdit);
