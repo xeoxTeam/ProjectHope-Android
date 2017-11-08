@@ -96,7 +96,8 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText surnameEdit = (EditText)findViewById(R.id.surnameEdit);
         final EditText emailEdit = (EditText)findViewById(R.id.emailEdit);
         final EditText cellEdit = (EditText)findViewById(R.id.cellEdit);
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
 
         user.sendEmailVerification()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
